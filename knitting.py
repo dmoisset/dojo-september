@@ -8,13 +8,11 @@ knit_grammar = Grammar(r"""
     count = ~"[0-9]"+
 """)
 
-example = """k10,p10
-k15,p5
-"""
-
 def human_readable__pattern(pattern):
-    ...
     knit_grammar.parse(example)
+    return "foo"
+
+example = open('example.k').read()
 
 assert human_readable__pattern(example) == (
     """
