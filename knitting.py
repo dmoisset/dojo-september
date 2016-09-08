@@ -3,11 +3,12 @@ from parsimonious import Grammar
 knit_grammar = Grammar(r"""
     pattern = cast_on? (row "\n")*
     cast_on = "CO" count "\n"
-    row = "Row " count ":" stitch_list
+    row = "Row " count side? ":" stitch_list
+    side = "(RS)" / "(WS)"
     stitch_list = stitch_group ("," stitch_group)*
     stitch_group = simple_stitch / repeat_stitch
-    simple_stitch = stitch_kind count stitch_scope?
-    repeat_stitch = "(" stitch_list ")" repeat_count
+    simple_stitch = stitch_kind count? stitch_scope?
+    repeat_stitch = "(" stitch_list ") " repeat_count
     repeat_count = count / "twice"
     stitch_kind = "p" / "k" / "sl" / "yo" / "ssk" / "sk2p"
     stitch_scope = "tog" / "psso" / "pnso"
@@ -18,7 +19,7 @@ def human_readable__pattern(pattern):
     knit_grammar.parse(example)
     return "foo"
 
-example = open('example.k').read()
+example = open('complicated.k').read()
 
 assert human_readable__pattern(example) == (
     """
