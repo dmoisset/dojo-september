@@ -15,16 +15,18 @@ knit_grammar = Grammar(r"""
     count = ~"[0-9]"+
 """)
 
-def human_readable__pattern(pattern):
+def human_readable_pattern(pattern):
     knit_grammar.parse(example)
     return "foo"
 
 example = open('complicated.k').read()
 
-assert human_readable__pattern(example) == (
-    """
-    Row 1: knit 10, purl 10
-    Row 2: kint 15, purl 5
-    """)
+# assert human_readable_pattern(example) == (
+#     """
+#     Row 1: knit 10, purl 10
+#     Row 2: kint 15, purl 5
+#     """)
+
+print(knit_grammar.parse(example))
 
 # http://zderadicka.eu/writing-simple-parser-in-python/
